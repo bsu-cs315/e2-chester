@@ -1,0 +1,214 @@
+[gd_scene load_steps=27 format=4 uid="uid://ctdnfjgcn11kb"]
+
+[ext_resource type="Texture2D" uid="uid://kc7cw684wa25" path="res://brown_tiles/tileBrown_01.png" id="1_4f42y"]
+[ext_resource type="Script" path="res://scripts/world.gd" id="1_imx13"]
+[ext_resource type="Texture2D" uid="uid://tre0xxtewria" path="res://brown_tiles/tileBrown_02.png" id="2_uwiwb"]
+[ext_resource type="PackedScene" uid="uid://qj8l0wh146v7" path="res://world/asteroid.tscn" id="2_wbc2r"]
+[ext_resource type="Texture2D" uid="uid://i8v7ju0j8o6m" path="res://brown_tiles/tileBrown_03.png" id="3_r5gtv"]
+[ext_resource type="Texture2D" uid="uid://bxq5sxvr1knyt" path="res://brown_tiles/tileBrown_04.png" id="4_uamr0"]
+[ext_resource type="Texture2D" uid="uid://dmqn6sxsmhvs" path="res://brown_tiles/tileBrown_27.png" id="5_r83ps"]
+[ext_resource type="PackedScene" uid="uid://d33mdkl4v17og" path="res://player/player.tscn" id="6_7p2p2"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="7_ptypm"]
+[ext_resource type="Script" path="res://scripts/camera_2d.gd" id="8_euevy"]
+[ext_resource type="PackedScene" uid="uid://b83ogrgknbacx" path="res://collectibles/gem.tscn" id="9_vcrxl"]
+[ext_resource type="AudioStream" uid="uid://bot4lvxcniw4y" path="res://collectibles/collect2.wav" id="10_x8dxb"]
+[ext_resource type="AudioStream" uid="uid://ce05tg0uv23kj" path="res://world/Background Music.wav" id="11_yp0cc"]
+[ext_resource type="Script" path="res://world/bounds.gd" id="13_xigsg"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_agvk0"]
+texture = ExtResource("1_4f42y")
+0:0/size_in_atlas = Vector2i(4, 4)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12.75, -12.375, 12.75, -12.25, 12.625, 12.375, -12.5, 12.5)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tsv7f"]
+texture = ExtResource("2_uwiwb")
+0:0/size_in_atlas = Vector2i(4, 4)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12.625, -12.5, 12.75, -12.25, 12.75, 12.125, -12.625, 12.125)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kl16t"]
+texture = ExtResource("3_r5gtv")
+0:0/size_in_atlas = Vector2i(4, 4)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12.75, -12.125, 12.625, -12.375, 12.625, 12.375, -12.5, 12.25)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iviil"]
+texture = ExtResource("4_uamr0")
+0:0/size_in_atlas = Vector2i(4, 4)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hso8b"]
+texture = ExtResource("5_r83ps")
+0:0/size_in_atlas = Vector2i(4, 4)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-31.9375, -27.3125, 31.8125, -27.5625, 31.5625, 27.8125, -31.9375, 27.6875)
+
+[sub_resource type="TileSet" id="TileSet_2vt8c"]
+physics_layer_0/collision_layer = 1
+sources/1 = SubResource("TileSetAtlasSource_tsv7f")
+sources/2 = SubResource("TileSetAtlasSource_kl16t")
+sources/3 = SubResource("TileSetAtlasSource_iviil")
+sources/0 = SubResource("TileSetAtlasSource_agvk0")
+sources/5 = SubResource("TileSetAtlasSource_hso8b")
+
+[sub_resource type="Animation" id="Animation_5cvfr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_i4k8s"]
+resource_name = "text_color"
+length = 0.4
+
+[sub_resource type="Animation" id="Animation_e8hph"]
+resource_name = "zoom"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:zoom")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.073, 0.333333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.08, 1.08), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cpym0"]
+_data = {
+"RESET": SubResource("Animation_5cvfr"),
+"text_color": SubResource("Animation_i4k8s"),
+"zoom": SubResource("Animation_e8hph")
+}
+
+[sub_resource type="GDScript" id="GDScript_jgrvy"]
+script/source = "extends AudioStreamPlayer2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+	pass
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pge62"]
+size = Vector2(5608, 209)
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_imx13")
+
+[node name="Asteroid" parent="." instance=ExtResource("2_wbc2r")]
+position = Vector2(-888, -342)
+scale = Vector2(0.2, 0.2)
+
+[node name="Asteroid2" parent="." instance=ExtResource("2_wbc2r")]
+position = Vector2(2270, 317)
+rotation = -1.83259
+scale = Vector2(0.2, 0.2)
+
+[node name="Asteroid3" parent="." instance=ExtResource("2_wbc2r")]
+position = Vector2(1524, -443)
+rotation = -1.309
+scale = Vector2(0.2, 0.2)
+
+[node name="Asteroid4" parent="." instance=ExtResource("2_wbc2r")]
+position = Vector2(1130, 550)
+rotation = 2.35619
+scale = Vector2(0.2, 0.2)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAKABsAAQAAAAAAAAAOABsAAQAAAAAAAAASABsAAQAAAAAAAAAWABsAAQAAAAAAAAAaABsAAQAAAAAAAAAeABsAAQAAAAAAAAAiABsAAQAAAAAAAAAmABsAAQAAAAAAAAAqABsAAQAAAAAAAAAuABsAAQAAAAAAAAAyABsAAQAAAAAAAAA2ABsAAQAAAAAAAAA6ABsAAQAAAAAAAAA+ABsAAQAAAAAAAABCABsAAgAAAAAAAABaAB8AAAAAAAAAAABeAB8AAQAAAAAAAABiAB8AAQAAAAAAAABmAB8AAQAAAAAAAABqAB8AAQAAAAAAAABuAB8AAQAAAAAAAAByAB8AAgAAAAAAAAACAAwAAQAAAAAAAAD+/wwAAQAAAAAAAAD6/wwAAQAAAAAAAAD2/wwAAQAAAAAAAADk/wIAAQAAAAAAAADg/wIAAQAAAAAAAADc/wIAAQAAAAAAAAD7//n/AQAAAAAAAAD///n/AQAAAAAAAAADAPn/AQAAAAAAAAAHAPn/AQAAAAAAAAALAPn/AQAAAAAAAAAPAPn/AQAAAAAAAABMAAoAAQAAAAAAAABQAAoAAQAAAAAAAABUAAoAAQAAAAAAAABYAAoAAQAAAAAAAAA9AAEAAQAAAAAAAAA5AAEAAQAAAAAAAABIAAoAAAAAAAAAAAA1AAEAAAAAAAAAAAD3//n/AAAAAAAAAADY/wIAAAAAAAAAAADy/wwAAAAAAAAAAABcAAoAAgAAAAAAAABBAAEAAgAAAAAAAAATAPn/AgAAAAAAAAAGAAwAAgAAAAAAAADY/wYABQAAAAAAAADc/wYABQAAAAAAAADg/wYABQAAAAAAAADh/wYABQAAAAAAAADl/wYABQAAAAAAAADo/woABQAAAAAAAADo/w4ABQAAAAAAAADk/woABQAAAAAAAADk/w4ABQAAAAAAAADg/woABQAAAAAAAADg/w4ABQAAAAAAAADc/woABQAAAAAAAADc/w4ABQAAAAAAAADY/woABQAAAAAAAADY/w4ABQAAAAAAAADo/xIABQAAAAAAAADk/xIABQAAAAAAAADg/xIABQAAAAAAAADc/xIABQAAAAAAAADY/xIABQAAAAAAAADo/xYABQAAAAAAAADo/xoABQAAAAAAAADk/xYABQAAAAAAAADg/xYABQAAAAAAAADc/xYABQAAAAAAAADY/xYABQAAAAAAAADY/xoABQAAAAAAAADY/x4ABQAAAAAAAADY/yIABQAAAAAAAADY/yYABQAAAAAAAADc/yYABQAAAAAAAADg/yYABQAAAAAAAADk/yYABQAAAAAAAADo/yYABQAAAAAAAADo/yIABQAAAAAAAADo/x4ABQAAAAAAAADk/xoABQAAAAAAAADg/xoABQAAAAAAAADc/xoABQAAAAAAAADc/x4ABQAAAAAAAADg/x4ABQAAAAAAAADk/x4ABQAAAAAAAADk/yIABQAAAAAAAADg/yIABQAAAAAAAADc/yIABQAAAAAAAADo/wYABQAAAAAAAADo/wIAAgAAAAAAAAAGABAABQAAAAAAAAAGABQABQAAAAAAAAAGABgABQAAAAAAAAAGABwABQAAAAAAAAAGACAABQAAAAAAAAAGACQABQAAAAAAAAAGACgABQAAAAAAAAAGACwABQAAAAAAAAAGADAABQAAAAAAAAACADAABQAAAAAAAAACACwABQAAAAAAAAACACgABQAAAAAAAAACACQABQAAAAAAAAACACAABQAAAAAAAAACABwABQAAAAAAAAACABgABQAAAAAAAAACABQABQAAAAAAAAACABAABQAAAAAAAAD+/xAABQAAAAAAAAD6/xAABQAAAAAAAAD2/xAABQAAAAAAAADy/xAABQAAAAAAAAD+/xQABQAAAAAAAAD6/xQABQAAAAAAAAD2/xQABQAAAAAAAADy/xQABQAAAAAAAADy/xgABQAAAAAAAAD2/xgABQAAAAAAAAD6/xgABQAAAAAAAAD+/xgABQAAAAAAAAD+/xwABQAAAAAAAAD+/yAABQAAAAAAAAD+/yQABQAAAAAAAAD+/ygABQAAAAAAAAD+/ywABQAAAAAAAAD+/zAABQAAAAAAAAD6/zAABQAAAAAAAAD2/zAABQAAAAAAAADy/zAABQAAAAAAAADy/ywABQAAAAAAAADy/ygABQAAAAAAAADy/yQABQAAAAAAAADy/yAABQAAAAAAAADy/xwABQAAAAAAAAD2/xwABQAAAAAAAAD6/xwABQAAAAAAAAD6/yAABQAAAAAAAAD2/yAABQAAAAAAAAD2/yQABQAAAAAAAAD6/yQABQAAAAAAAAD6/ygABQAAAAAAAAD2/ygABQAAAAAAAAD2/ywABQAAAAAAAAD6/ywABQAAAAAAAAAKAB8ABQAAAAAAAAAOAB8ABQAAAAAAAAASAB8ABQAAAAAAAAAWAB8ABQAAAAAAAAAaAB8ABQAAAAAAAAAeAB8ABQAAAAAAAAAiAB8ABQAAAAAAAAAmAB8ABQAAAAAAAAAqAB8ABQAAAAAAAAAuAB8ABQAAAAAAAAAyAB8ABQAAAAAAAAA2AB8ABQAAAAAAAAA6AB8ABQAAAAAAAAA+AB8ABQAAAAAAAABCAB8ABQAAAAAAAABCACMABQAAAAAAAABCACcABQAAAAAAAABCACsABQAAAAAAAABCAC8ABQAAAAAAAAA+AC8ABQAAAAAAAAA6AC8ABQAAAAAAAAA2AC8ABQAAAAAAAAAyAC8ABQAAAAAAAAAuAC8ABQAAAAAAAAAqAC8ABQAAAAAAAAAmAC8ABQAAAAAAAAAiAC8ABQAAAAAAAAAeAC8ABQAAAAAAAAAaAC8ABQAAAAAAAAAWAC8ABQAAAAAAAAASAC8ABQAAAAAAAAAOAC8ABQAAAAAAAAAKAC8ABQAAAAAAAAAKACsABQAAAAAAAAAKACcABQAAAAAAAAAKACMABQAAAAAAAAAOACMABQAAAAAAAAASACMABQAAAAAAAAAWACMABQAAAAAAAAAaACMABQAAAAAAAAAeACMABQAAAAAAAAAiACMABQAAAAAAAAAmACMABQAAAAAAAAAqACMABQAAAAAAAAAuACMABQAAAAAAAAAyACMABQAAAAAAAAA2ACMABQAAAAAAAAA6ACMABQAAAAAAAAA+ACMABQAAAAAAAAA+ACcABQAAAAAAAAA+ACsABQAAAAAAAAA6ACsABQAAAAAAAAA6ACcABQAAAAAAAAA2ACcABQAAAAAAAAAyACcABQAAAAAAAAAuACcABQAAAAAAAAAqACcABQAAAAAAAAAmACcABQAAAAAAAAAjACcABQAAAAAAAAAfACcABQAAAAAAAAAcACcABQAAAAAAAAAYACcABQAAAAAAAAAUACcABQAAAAAAAAARACcABQAAAAAAAAAOACcABQAAAAAAAAAOACsABQAAAAAAAAARACsABQAAAAAAAAAVACsABQAAAAAAAAAWACsABQAAAAAAAAAaACsABQAAAAAAAAAbACsABQAAAAAAAAAfACsABQAAAAAAAAAjACsABQAAAAAAAAAnACsABQAAAAAAAAArACsABQAAAAAAAAAuACsABQAAAAAAAAAyACsABQAAAAAAAAA2ACsABQAAAAAAAABaACMABQAAAAAAAABeACMABQAAAAAAAABiACMABQAAAAAAAABmACMABQAAAAAAAABqACMABQAAAAAAAABuACMABQAAAAAAAAByACMABQAAAAAAAAByACcABQAAAAAAAAByACsABQAAAAAAAABuACcABQAAAAAAAABqACcABQAAAAAAAABmACcABQAAAAAAAABiACcABQAAAAAAAABeACcABQAAAAAAAABaACcABQAAAAAAAABaACsABQAAAAAAAABeACsABQAAAAAAAABiACsABQAAAAAAAABmACsABQAAAAAAAABqACsABQAAAAAAAABuACsABQAAAAAAAABaAC8ABQAAAAAAAABeAC8ABQAAAAAAAABiAC8ABQAAAAAAAABmAC8ABQAAAAAAAABqAC8ABQAAAAAAAABuAC8ABQAAAAAAAAByAC8ABQAAAAAAAAA=")
+tile_set = SubResource("TileSet_2vt8c")
+
+[node name="player" parent="." instance=ExtResource("6_7p2p2")]
+unique_name_in_owner = true
+position = Vector2(407, 317)
+scale = Vector2(0.15, 0.15)
+script = ExtResource("7_ptypm")
+
+[node name="PlayerCamera" type="Camera2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(436, 122)
+position_smoothing_enabled = true
+position_smoothing_speed = 8.0
+script = ExtResource("8_euevy")
+
+[node name="GemsLeft" type="Label" parent="PlayerCamera"]
+unique_name_in_owner = true
+offset_left = -205.0
+offset_top = 131.0
+offset_right = 339.0
+offset_bottom = 193.0
+theme_override_font_sizes/font_size = 41
+text = "Gems Left to Collect: "
+
+[node name="PlayerCameraAnim" type="AnimationPlayer" parent="PlayerCamera"]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_cpym0")
+}
+speed_scale = 1.3
+
+[node name="CameraAudio1" type="AudioStreamPlayer2D" parent="PlayerCamera"]
+unique_name_in_owner = true
+stream = ExtResource("10_x8dxb")
+
+[node name="BackgroundMusic" type="AudioStreamPlayer2D" parent="PlayerCamera"]
+unique_name_in_owner = true
+stream = ExtResource("11_yp0cc")
+volume_db = -18.0
+script = SubResource("GDScript_jgrvy")
+
+[node name="gem" parent="." groups=["gems"] instance=ExtResource("9_vcrxl")]
+position = Vector2(719, 344)
+
+[node name="gem2" parent="." groups=["gems"] instance=ExtResource("9_vcrxl")]
+position = Vector2(930, 346)
+
+[node name="gem3" parent="." groups=["gems"] instance=ExtResource("9_vcrxl")]
+position = Vector2(1562, 419)
+
+[node name="gem4" parent="." groups=["gems"] instance=ExtResource("9_vcrxl")]
+position = Vector2(-49, 97)
+
+[node name="gem5" parent="." groups=["gems"] instance=ExtResource("9_vcrxl")]
+position = Vector2(-601, -141)
+
+[node name="gem6" parent="." groups=["gems"] instance=ExtResource("9_vcrxl")]
+position = Vector2(248, -251)
+
+[node name="gem7" parent="." groups=["gems"] instance=ExtResource("9_vcrxl")]
+position = Vector2(605, -110)
+
+[node name="gem8" parent="." groups=["gems"] instance=ExtResource("9_vcrxl")]
+position = Vector2(925, -60)
+
+[node name="gem9" parent="." groups=["gems"] instance=ExtResource("9_vcrxl")]
+position = Vector2(1309, 63)
+
+[node name="Bounds" type="Area2D" parent="."]
+script = ExtResource("13_xigsg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bounds"]
+position = Vector2(747, 1353.5)
+shape = SubResource("RectangleShape2D_pge62")
+
+[connection signal="finished" from="PlayerCamera/BackgroundMusic" to="." method="_on_background_music_finished"]
+[connection signal="area_entered" from="Bounds" to="Bounds" method="_on_area_entered"]

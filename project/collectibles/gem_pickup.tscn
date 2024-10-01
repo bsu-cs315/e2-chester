@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://oevi2qctx0j8"]
+
+[node name="gem_pickup" type="CPUParticles2D"]
+scale = Vector2(6, 6)
+emitting = false
+amount = 800
+one_shot = true
+speed_scale = 5.0
+explosiveness = 0.8
+randomness = 1.0
+lifetime_randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 8.0
+initial_velocity_max = 8.0
+angular_velocity_max = 71.4
+scale_amount_min = 5.0
+scale_amount_max = 5.0
+color = Color(1, 0.422688, 0.272819, 1)

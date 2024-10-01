@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bo20ctse6tv16"]
+[gd_scene load_steps=3 format=3 uid="uid://bo20ctse6tv16"]
 
-[ext_resource type="Script" path="res://main_menu.gd" id="1_lx2nu"]
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_lx2nu"]
+[ext_resource type="PackedScene" uid="uid://qj8l0wh146v7" path="res://world/asteroid.tscn" id="2_a4jvk"]
 
 [node name="Main Menu" type="Node2D"]
 script = ExtResource("1_lx2nu")
@@ -19,5 +20,19 @@ offset_top = 304.0
 offset_right = 678.0
 offset_bottom = 344.0
 text = "Play"
+
+[node name="Asteroid" parent="." instance=ExtResource("2_a4jvk")]
+position = Vector2(57, 76)
+scale = Vector2(0.204824, 0.204824)
+
+[node name="Asteroid2" parent="." instance=ExtResource("2_a4jvk")]
+position = Vector2(896, 76)
+rotation = -2.35619
+scale = Vector2(0.204824, 0.204824)
+
+[node name="Asteroid3" parent="." instance=ExtResource("2_a4jvk")]
+position = Vector2(1027, 483)
+rotation = 1.83259
+scale = Vector2(0.204824, 0.204824)
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
