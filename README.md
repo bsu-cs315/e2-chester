@@ -20,3 +20,30 @@ Conventional rules of code quality, such as Clean Code, are followed. - DONE ( N
 + Versioning: The repository is properly configured, in the course organization with no extraneous files tracked, with a single mainline branch, and with all commits following Beams' rules.
 A Release on GitHub and the corresponding tag mark the increment. DONE - ( All commits follow Beam's rules and there is a release corresponding to Increment 2.1)
 + Documentation: The report is complete as described in the first week's exercise. - DONE
+
+
+## Revision Report
+### Increment 2.1 - Week of September 23 resubmission
++ Fixed core gameplay loop to reset the game when the player falls off the edge
++ Cleaned code to follow the style guide (removed space on the first line of each function)
++ Bundled scripts and scenes into directories
++ Fixed Semantic Github versioning
+
+# Exercise 2, Increment 2: Spit and Polish
+
+Copyright/3rd Party Assets:
++ gemRed.png from [Kenney's Platformer Pack Redux](https://kenney.nl/assets/platformer-pack-redux), licensed under [CC0](https://creativecommons.org/publicdomain/zero/1.0/)
++ player_sprites from [Kenney's Platformer Pack Redux](https://kenney.nl/assets/platformer-pack-redux), licensed under [CC0](https://creativecommons.org/publicdomain/zero/1.0/)
++ brown_tiles from [Kenney's Platformer Pack Redux](https://kenney.nl/assets/platformer-pack-redux), licensed under [CC0](https://creativecommons.org/publicdomain/zero/1.0/)
++ asteroid.png Designed by [Freepik](https://www.freepik.com/free-vector/falling-space-comet-icon_136481623.htm#query=2d%20asteroid&position=13&from_view=keyword&track=ais_hybrid&uuid=c6dfe595-ea15-4ccd-8c44-4e5a2256e660)
+
+Controls / Game Instructions:
++ A = move left
++ D = move right
++ Space = Jump
+(Press play on the main menu and collect all the gems without falling off.)
+
+Essential Goals:
++ All essential goals met from increment 2.1
++ Juice: At least one example of “juice” (besides sound effects) that is explained in the documentation - DONE (Added a juice effect to the camera when the player picks up a gem)
++ Media: Images, sound effects, and music are present and reinforce the theme of the game. - DONE (Added a soundtrack to the game, sound effects when a gem is collected, and made the game look like it takes place in space on an alien planet)
