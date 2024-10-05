@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bo20ctse6tv16"]
 
-[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_lx2nu"]
+[ext_resource type="Script" path="res://world/main_menu.gd" id="1_lx2nu"]
 [ext_resource type="PackedScene" uid="uid://qj8l0wh146v7" path="res://world/asteroid.tscn" id="2_a4jvk"]
 
 [node name="Main Menu" type="Node2D"]
