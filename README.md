@@ -47,3 +47,7 @@ Essential Goals:
 + All essential goals met from increment 2.1
 + Juice: At least one example of “juice” (besides sound effects) that is explained in the documentation - DONE (Added a juice effect to the camera when the player picks up a gem)
 + Media: Images, sound effects, and music are present and reinforce the theme of the game. - DONE (Added a soundtrack to the game, sound effects when a gem is collected, and made the game look like it takes place in space on an alien planet)
+
+## Revision Report
+### Increment 2.2 - Week of October 1 minor revision
++ Separated scripts into appropriate folders
