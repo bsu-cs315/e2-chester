@@ -28,6 +28,9 @@ A Release on GitHub and the corresponding tag mark the increment. DONE - ( All c
 + Cleaned code to follow the style guide (removed space on the first line of each function)
 + Bundled scripts and scenes into directories
 + Fixed Semantic Github versioning
+### Increment 2.1 - Week of October 29 resubmission
++ Fixed world bounds to reset to main menu if the player falls
+  -The reason this issue existed was when I sorted things into folders the path to the main menu changed but was not updated in the script.
 
 # Exercise 2, Increment 2: Spit and Polish
 
@@ -51,3 +54,4 @@ Essential Goals:
 ## Revision Report
 ### Increment 2.2 - Week of October 1 minor revision
 + Separated scripts into appropriate folders
+  
